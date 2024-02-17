@@ -1,17 +1,3 @@
-# (c) @AbirHasan2005
-
-# This is Telegram Video Watermark Adder Bot's Source Code.
-# I Hardly Made This. So Don't Forget to Give Me Credits.
-# Done this Huge Task for Free. If you guys not support me,
-# I will stop making such things!
-
-# Edit anything at your own risk!
-
-# Don't forget to help me if I done any mistake in the codes.
-# Support Group: @DevsZone 
-# Bots Channel: @Discovery_Updates
-
-
 import os
 import time
 import json
@@ -40,28 +26,28 @@ AHBot = Client(Config.BOT_USERNAME, bot_token=Config.BOT_TOKEN, api_id=Config.AP
 
 @AHBot.on_message(filters.command(["start", "help"]) & filters.private)
 async def HelpWatermark(bot, cmd):
-	if not await db.is_user_exist(cmd.from_user.id):
-		await db.add_user(cmd.from_user.id)
-		await bot.send_message(
-			Config.LOG_CHANNEL,
-			f"#NEW_USER: \n\nNew User [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @{Config.BOT_USERNAME} !!"
-		)
-	if Config.UPDATES_CHANNEL:
-		fsub = await handle_force_subscribe(bot, cmd)
-		if fsub == 400:
-			return
-	await cmd.reply_text(
-		text=Config.USAGE_WATERMARK_ADDER,
-		reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Developer", url="https://t.me/AbirHasan2005"), InlineKeyboardButton("Support Group", url="https://t.me/DevsZone")], [InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates")], [InlineKeyboardButton("Source Code", url="https://github.com/AbirHasan2005/Watermark-Bot")]]),
-		disable_web_page_preview=True
+    if not await db.is_user_exist(cmd.from_user.id):
+	await db.add_user(cmd.from_user.id)
+	await bot.send_message(
+	    Config.LOG_CHANNEL,
+	    f"#NEW_USER: \n\nNew User [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @{Config.BOT_USERNAME} !!"
 	)
+    if Config.UPDATES_CHANNEL:
+        fsub = await handle_force_subscribe(bot, cmd)
+        if fsub == 400:
+	    return
+    await cmd.reply_text(
+	text=Config.USAGE_WATERMARK_ADDER,
+	reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Developer", url="https://t.me/AbirHasan2005"), InlineKeyboardButton("Support Group", url="https://t.me/DevsZone")], [InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates")], [InlineKeyboardButton("Source Code", url="https://github.com/AbirHasan2005/Watermark-Bot")]]),
+	disable_web_page_preview=True
+    )
 
 
 @AHBot.on_message(filters.command(["reset"]) & filters.private)
 async def reset(bot, update):
-        await db.delete_user(update.from_user.id)
-        await db.add_user(update.from_user.id)
-        await update.reply_text("Settings reseted successfully")
+    await db.delete_user(update.from_user.id)
+    await db.add_user(update.from_user.id)
+    await update.reply_text("Settings reseted successfully")
 
 async def duration(filename):
     result = subprocess.run(["ffprobe", "-v", "error", "-show_entries",
@@ -81,19 +67,19 @@ def get_duration(filepath):
 
 @AHBot.on_message(filters.command("settings") & filters.private)
 async def SettingsBot(bot, cmd):
-	if not await db.is_user_exist(cmd.from_user.id):
-		await db.add_user(cmd.from_user.id)
-		await bot.send_message(
-			Config.LOG_CHANNEL,
-			f"#NEW_USER: \n\nNew User [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @{Config.BOT_USERNAME} !!"
-		)
-	if Config.UPDATES_CHANNEL:
-		fsub = await handle_force_subscribe(bot, cmd)
-		if fsub == 400:
-			return
+    if not await db.is_user_exist(cmd.from_user.id):
+	await db.add_user(cmd.from_user.id)
+	await bot.send_message(
+	    Config.LOG_CHANNEL,
+	    f"#NEW_USER: \n\nNew User [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @{Config.BOT_USERNAME} !!"
+	)
+    if Config.UPDATES_CHANNEL:
+	fsub = await handle_force_subscribe(bot, cmd)
+	if fsub == 400:
+	    return
 	## --- Checks --- ##
-	position_tag = None
-	watermark_position = await db.get_position(cmd.from_user.id)
+    position_tag = None
+    watermark_position = await db.get_position(cmd.from_user.id)
 	if watermark_position == "5:main_h-overlay_h":
 		position_tag = "Bottom Left"
 	elif watermark_position == "main_w-overlay_w-5:main_h-overlay_h-5":
