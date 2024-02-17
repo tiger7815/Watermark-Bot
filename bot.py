@@ -63,6 +63,21 @@ async def reset(bot, update):
         await db.add_user(update.from_user.id)
         await update.reply_text("Settings reseted successfully")
 
+def duration(filename):
+    result = subprocess.run(["ffprobe", "-v", "error", "-show_entries",
+                             "format=duration", "-of",
+                             "default=noprint_wrappers=1:nokey=1", filename],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT)
+    return float(result.stdout)
+
+
+def get_duration(filepath):
+        metadata = extractMetadata(createParser(filepath))
+        if metadata.has("duration"):
+            return metadata.get('duration').seconds
+        else:
+            return 0
 
 @AHBot.on_message(filters.command("settings") & filters.private)
 async def SettingsBot(bot, cmd):
@@ -228,7 +243,7 @@ async def VidWatermarkAdder(bot, cmd):
 
 	watermark_size = await db.get_size(cmd.from_user.id)
 	await editable.edit(f"Trying to Add Watermark to the Video at {position_tag} Corner ...\n\nPlease Wait!")
-	duration = 0
+#	duration = 0
 #	metadata = extractMetadata(createParser(the_media))
 #	if metadata.has("duration"):
 #		duration = metadata.get('duration').seconds
@@ -237,15 +252,8 @@ async def VidWatermarkAdder(bot, cmd):
 #            stdout=subprocess.PIPE,
 #            stderr=subprocess.STDOUT
 #        )
-        duration_cmd = [
-            "ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", the_media
-	]
-        result = await asyncio.create_subprocess_exec(
-            *duration_cmd,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE,
-        )
-        duration = float(result.stdout)
+        
+        duration = duration(the_media)
 	the_media_file_name = os.path.basename(the_media)
 	main_file_name = os.path.splitext(the_media_file_name)[0]
 	output_vid = main_file_name + "_[" + str(cmd.from_user.id) + "]_[" + str(time.time()) + "]_[@AbirHasan2005]" + ".mp4"
