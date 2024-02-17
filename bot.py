@@ -175,7 +175,7 @@ async def VidWatermarkAdder(bot, cmd):
 	with open(status, "w") as f:
 		statusMsg = {
 			'chat_id': cmd.from_user.id,
-			'message': editable.message.id
+			'message': editable.id
 		}
 		json.dump(statusMsg, f, indent=2)
 	dl_loc = Config.DOWN_PATH + "/WatermarkAdder/" + str(cmd.from_user.id) + "/"
