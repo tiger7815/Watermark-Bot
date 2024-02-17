@@ -235,7 +235,9 @@ async def VidWatermarkAdder(bot, cmd):
                                  "format=duration", "-of",
                                  "default=noprint_wrappers=1:nokey=1", the_media],
                                 stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT)
+                                stderr=subprocess.STDOUT,
+                                )
+
         duration = float(result.stdout)
 	the_media_file_name = os.path.basename(the_media)
 	main_file_name = os.path.splitext(the_media_file_name)[0]
