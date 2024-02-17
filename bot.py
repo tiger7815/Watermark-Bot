@@ -63,7 +63,7 @@ async def reset(bot, update):
         await db.add_user(update.from_user.id)
         await update.reply_text("Settings reseted successfully")
 
-def duration(filename):
+async def duration(filename):
     result = subprocess.run(["ffprobe", "-v", "error", "-show_entries",
                              "format=duration", "-of",
                              "default=noprint_wrappers=1:nokey=1", filename],
@@ -253,7 +253,7 @@ async def VidWatermarkAdder(bot, cmd):
 #            stderr=subprocess.STDOUT
 #        )
         
-        duration = duration(the_media)
+        duration = await duration(the_media)
 	the_media_file_name = os.path.basename(the_media)
 	main_file_name = os.path.splitext(the_media_file_name)[0]
 	output_vid = main_file_name + "_[" + str(cmd.from_user.id) + "]_[" + str(time.time()) + "]_[@AbirHasan2005]" + ".mp4"
