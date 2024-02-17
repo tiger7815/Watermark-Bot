@@ -232,7 +232,7 @@ async def VidWatermarkAdder(bot, cmd):
 #	if metadata.has("duration"):
 #		duration = metadata.get('duration').seconds
         result = subprocess.run(["ffprobe", "-v", "error", "-show_entries",
-                                "format=duration", "-of",
+                                 "format=duration", "-of",
                                  "default=noprint_wrappers=1:nokey=1", the_media],
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT)
