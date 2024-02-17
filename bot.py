@@ -243,8 +243,8 @@ async def VidWatermarkAdder(bot, cmd):
 
 	watermark_size = await db.get_size(cmd.from_user.id)
 	await editable.edit(f"Trying to Add Watermark to the Video at {position_tag} Corner ...\n\nPlease Wait!")
-        duration = await duration(the_media)
-        the_media_file_name = os.path.basename(the_media)
+    duration = await duration(the_media)
+    the_media_file_name = os.path.basename(the_media)
 	main_file_name = os.path.splitext(the_media_file_name)[0]
 	output_vid = main_file_name + "_[" + str(cmd.from_user.id) + "]_[" + str(time.time()) + "]_[@AbirHasan2005]" + ".mp4"
 	progress = Config.DOWN_PATH + "/WatermarkAdder/" + str(cmd.from_user.id) + "/progress.txt"
