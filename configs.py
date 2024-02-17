@@ -8,7 +8,7 @@ import os
 
 
 class Config(object):
-	BOT_TOKEN = os.environ.get("BOT_TOKEN", "6639259439:AAF_Sp86pOk3TZLmcqKpfQnYtb3TcMfN6oM")
+	BOT_TOKEN = os.environ.get("BOT_TOKEN", "6639259439:AAHmbc1auq2hDmRbwI-SKwETvSMQG74f028")
 	API_ID = int(os.environ.get("API_ID", 18618422))
 	API_HASH = os.environ.get("API_HASH", "f165b1caec3cfa4df943fe1cbe82d22a")
 	STREAMTAPE_API_PASS = os.environ.get("STREAMTAPE_API_PASS", "NoNeed")
