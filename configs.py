@@ -20,7 +20,7 @@ class Config(object):
 	OWNER_ID = int(os.environ.get("OWNER_ID", 6050277919))
 	CAPTION = "By @my_wtadd_bot"
 	BOT_USERNAME = os.environ.get("BOT_USERNAME", "ultroid_77919_bot")
-	DATABASE_URL = os.environ.get("DATABASE_URL", "mongodb+srv://mohit18324:TxsMAm4VjmS0nQ74@cluster0.ynzyhrh.mongodb.net/?retryWrites=true&w=majority")
+	DATABASE_URL = os.environ.get("DATABASE_URL", "mongodb+srv://mrag2408:FWsWe727LzF00j9v@cluster0.hhyhf6l.mongodb.net/?retryWrites=true&w=majority")
 	BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
 	ALLOW_UPLOAD_TO_STREAMTAPE = bool(os.environ.get("ALLOW_UPLOAD_TO_STREAMTAPE", False))
 	USAGE_WATERMARK_ADDER = """
