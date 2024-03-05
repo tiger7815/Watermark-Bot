@@ -27,7 +27,7 @@ from pyrogram.errors.exceptions.flood_420 import FloodWait
 
 async def vidmark(the_media, message, working_dir, watermark_path, output_vid, total_time, logs_msg, status, mode, position, size):
     file_genertor_command = [
-        "ffmpeg", "-hide_banner", "-loglevel", "quiet", "-progress", working_dir, "-i", the_media, "-i", watermark_path,
+        "ffmpeg", "-hide_banner", "-loglevel", "quiet", "-progress", "progress.log", "-i", the_media, "-i", watermark_path,
         "-filter_complex", f"[1][0]scale2ref=w='iw*{size}/100':h='ow/mdar'[wm][vid];[vid][wm]overlay={position}",
         "-c:v", "copy", "-preset", mode, "-crf", "0", "-c:a", "copy", output_vid
     ]
@@ -37,14 +37,16 @@ async def vidmark(the_media, message, working_dir, watermark_path, output_vid, t
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
     )
-    with open(status, 'r+') as f:
-        statusMsg = json.load(f)
+    async with aio_open(status, 'r+') as f:
+        statusMsg = json.load(await f.read())
         statusMsg['pid'] = process.pid
-        f.seek(0)
-        json.dump(statusMsg, f, indent=2)
-    while process.returncode != 0:
+        await f.seek(0)
+        await f.write(json.dumps(statusMsg, indent=2))
+        await f.truncate()
+
+    while True:
         await asyncio.sleep(5)
-        with open(working_dir, 'r+') as file:
+        with open("progress.log", 'r') as file:
             text = file.read()
             frame = re.findall("frame=(\d+)", text)
             time_in_us=re.findall("out_time_ms=(\d+)", text)
@@ -53,21 +55,21 @@ async def vidmark(the_media, message, working_dir, watermark_path, output_vid, t
             if len(frame):
                 frame = int(frame[-1])
             else:
-                frame = 1;
+                frame = 1
             if len(speed):
                 speed = speed[-1]
             else:
-                speed = 1;
+                speed = 1
             if len(time_in_us):
                 time_in_us = time_in_us[-1]
             else:
-                time_in_us = 1;
+                time_in_us = 1
             if len(progress):
                 if progress[-1] == "end":
                     break
             execution_time = TimeFormatter((time.time() - COMPRESSION_START_TIME)*1000)
             elapsed_time = int(time_in_us)/1000000
-            difference = math.floor( (total_time - elapsed_time) / float(speed) )
+            difference = math.floor((total_time - elapsed_time) / float(speed))
             ETA = "-"
             if difference > 0:
                 ETA = TimeFormatter(difference*1000)
@@ -76,7 +78,7 @@ async def vidmark(the_media, message, working_dir, watermark_path, output_vid, t
                 round(percentage, 2),
                 ''.join(["▓" for i in range(math.floor(percentage / 10))]),
                 ''.join(["░" for i in range(10 - math.floor(percentage / 10))])
-                )
+            )
             stats = f'📦️ **Adding Watermark [Preset: `{mode}`]**\n\n' \
                     f'⏰️ **ETA:** `{ETA}`\n❇️ **Position:** `{position}`\n🔰 **PID:** `{process.pid}`\n🔄 **Duration: `{format_timespan(total_time)}`**\n\n' \
                     f'{progress_str}\n'
