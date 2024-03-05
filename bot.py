@@ -153,7 +153,7 @@ async def VidWatermarkAdder(bot, cmd):
         fsub = await handle_force_subscribe(bot, cmd)
         if fsub == 400:
             return
-    if Config.WATERMARK_CHANNEL:
+    if Config.LOG_CHANNEL:
         watermark_channel = int(Config.LOG_CHANNEL)
         try:
             media = cmd
