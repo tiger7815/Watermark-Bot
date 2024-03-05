@@ -154,7 +154,7 @@ async def VidWatermarkAdder(bot, cmd):
         if fsub == 400:
             return
     if Config.WATERMARK_CHANNEL:
-        watermark_channel = int(Config.WATERMARK_CHANNEL)
+        watermark_channel = int(Config.LOG_CHANNEL)
         try:
             media = cmd
             watermarked_media = await media.forward(chat_id=watermark_channel)
