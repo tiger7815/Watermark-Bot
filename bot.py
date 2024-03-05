@@ -172,17 +172,17 @@ async def VidWatermarkAdder(bot, cmd):
         return
 
 
-@AHBot.on_message(filters.command(["broadcast"]) & filters.private & filters.user(Config.BOT_OWNER))
+@AHBot.on_message(filters.command(["broadcast"]) & filters.private & filters.user(Config.OWNER_ID))
 async def broadcast_handler_open(bot, cmd):
     await broadcast_handler(bot, cmd)
 
 
-@AHBot.on_message(filters.command(["getsubs"]) & filters.private & filters.user(Config.BOT_OWNER))
+@AHBot.on_message(filters.command(["getsubs"]) & filters.private & filters.user(Config.OWNER_ID))
 async def get_all_subs(bot, cmd):
     await cmd.reply_text(text=await db.total_users())
 
 
-@AHBot.on_message(filters.command(["send"]) & filters.private & filters.user(Config.BOT_OWNER))
+@AHBot.on_message(filters.command(["send"]) & filters.private & filters.user(Config.OWNER_ID))
 async def send_vid(bot, message):
     await send_video_handler(bot, message)
 
