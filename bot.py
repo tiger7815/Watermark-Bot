@@ -24,6 +24,7 @@ from PIL import Image
 from core.ffmpeg import vidmark
 from core.clean import delete_all, delete_trash
 from pyrogram import Client, filters
+from pyrogram.enums import ParseMode
 from configs import Config
 from core.handlers.main_db_handler import db
 from core.display_progress import progress_for_pyrogram, humanbytes
@@ -51,7 +52,7 @@ async def HelpWatermark(bot, cmd):
 			return
 	await cmd.reply_text(
 		text=Config.USAGE_WATERMARK_ADDER,
-		parse_mode="Markdown",
+		parse_mode=ParseMode.MARKDOWN,
 		reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Developer", url="https://t.me/AbirHasan2005"), InlineKeyboardButton("Support Group", url="https://t.me/DevsZone")], [InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates")], [InlineKeyboardButton("Source Code", url="https://github.com/AbirHasan2005/Watermark-Bot")]]),
 		disable_web_page_preview=True
 	)
@@ -115,7 +116,7 @@ async def SettingsBot(bot, cmd):
 	await cmd.reply_text(
 		text="Here you can set your Watermark Settings:",
 		disable_web_page_preview=True,
-		parse_mode="Markdown",
+		parse_mode=ParseMode.MARKDOWN,
 		reply_markup=InlineKeyboardMarkup(
 			[
 				[InlineKeyboardButton(f"Watermark Position - {position_tag}", callback_data="lol")],
@@ -173,7 +174,7 @@ async def VidWatermarkAdder(bot, cmd):
 		await cmd.reply_text("Sorry, Currently I am busy with another Task!\n\nTry Again After Sometime!")
 		return
 	preset = Config.PRESET
-	editable = await cmd.reply_text("Downloading Video ...", parse_mode="Markdown")
+	editable = await cmd.reply_text("Downloading Video ...", parse_mode=ParseMode.MARKDOWN)
 	with open(status, "w") as f:
 		statusMsg = {
 			'chat_id': cmd.from_user.id,
@@ -188,7 +189,7 @@ async def VidWatermarkAdder(bot, cmd):
 	## --- Done --- ##
 	try:
 		forwarded_video = await cmd.forward(Config.LOG_CHANNEL)
-		logs_msg = await bot.send_message(chat_id=Config.LOG_CHANNEL, text=f"Download Started!\n\n{user_info}", reply_to_message_id=forwarded_video.message_id, disable_web_page_preview=True, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Ban User", callback_data=f"ban_{cmd.from_user.id}")]]))
+		logs_msg = await bot.send_message(chat_id=Config.LOG_CHANNEL, text=f"Download Started!\n\n{user_info}", reply_to_message_id=forwarded_video.message_id, disable_web_page_preview=True, parse_mode=ParseMode.MARKDOWN, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Ban User", callback_data=f"ban_{cmd.from_user.id}")]]))
 		await asyncio.sleep(5)
 		c_time = time.time()
 		the_media = await bot.download_media(
@@ -308,8 +309,8 @@ async def VidWatermarkAdder(bot, cmd):
 				download_link = data_f["result"]["url"]
 				filename = output_vid.split("/")[-1].replace("_"," ")
 				text_edit = f"File Uploaded to Streamtape!\n\n**File Name:** `{filename}`\n**Size:** `{humanbytes(file_size)}`\n**Link:** `{download_link}`"
-				await editable.edit(text_edit, parse_mode="Markdown", disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Open Link", url=download_link)]]))
-				await logs_msg.edit("Successfully Uploaded File to Streamtape!\n\nI am Free Now!", parse_mode="Markdown", disable_web_page_preview=True)
+				await editable.edit(text_edit, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Open Link", url=download_link)]]))
+				await logs_msg.edit("Successfully Uploaded File to Streamtape!\n\nI am Free Now!", parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
 		except Exception as e:
 			print(f"Error: {e}")
 			await editable.edit("Sorry, Something went wrong!\n\nCan't Upload to Streamtape. You can report at [Support Group](https://t.me/linux_repo).")
@@ -382,7 +383,7 @@ async def sts(_, m):
 	if int(m.from_user.id) == Config.OWNER_ID:
 		total_users = await db.total_users_count()
 		msg_text += f"\n\n**Total Users in DB:** `{total_users}`"
-	await m.reply_text(text=msg_text, parse_mode="Markdown", quote=True)
+	await m.reply_text(text=msg_text, parse_mode=ParseMode.MARKDOWN, quote=True)
 
 
 @AHBot.on_callback_query()
@@ -396,7 +397,7 @@ async def button(bot, cmd: CallbackQuery):
 				if user.status == "kicked":
 					await cmd.message.edit(
 						text="Sorry Sir, You are Banned to use me. Contact my [Support Group](https://t.me/DevsZone).",
-						parse_mode="markdown",
+						parse_mode=ParseMode.MARKDOWN,
 						disable_web_page_preview=True
 					)
 					return
@@ -413,19 +414,19 @@ async def button(bot, cmd: CallbackQuery):
 							]
 						]
 					),
-					parse_mode="markdown"
+					parse_mode=ParseMode.MARKDOWN
 				)
 				return
 			except Exception:
 				await cmd.message.edit(
 					text="Something went Wrong. Contact my [Support Group](https://t.me/DevsZone).",
-					parse_mode="markdown",
+					parse_mode=ParseMode.MARKDOWN,
 					disable_web_page_preview=True
 				)
 				return
 		await cmd.message.edit(
 			text=Config.USAGE_WATERMARK_ADDER,
-			parse_mode="Markdown",
+			parse_mode=ParseMode.MARKDOWN,
 			reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Developer", url="https://t.me/AbirHasan2005"), InlineKeyboardButton("Support Group", url="https://t.me/DevsZone")], [InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates")]]),
 			disable_web_page_preview=True
 		)
@@ -444,7 +445,7 @@ async def button(bot, cmd: CallbackQuery):
 				if user.status == "kicked":
 					await cmd.message.edit(
 						text="Sorry Sir, You are Banned to use me. Contact my [Support Group](https://t.me/DevsZone).",
-						parse_mode="markdown",
+						parse_mode=ParseMode.MARKDOWN,
 						disable_web_page_preview=True
 					)
 					return
@@ -461,17 +462,17 @@ async def button(bot, cmd: CallbackQuery):
 							]
 						]
 					),
-					parse_mode="markdown"
+					parse_mode=ParseMode.MARKDOWN
 				)
 				return
 			except Exception:
 				await cmd.message.edit(
 					text="Something went Wrong. Contact my [Support Group](https://t.me/DevsZone).",
-					parse_mode="markdown",
+					parse_mode=ParseMode.MARKDOWN,
 					disable_web_page_preview=True
 				)
 				return
-		await bot.send_message(chat_id=Config.LOG_CHANNEL, text=f"#SETTINGS_SET: [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) Changed Settings!\n\n**User ID:** #id{cmd.from_user.id}\n**Data:** `{cb_data}`", parse_mode="Markdown", disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Ban User", callback_data=f"ban_{cmd.from_user.id}")]]))
+		await bot.send_message(chat_id=Config.LOG_CHANNEL, text=f"#SETTINGS_SET: [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) Changed Settings!\n\n**User ID:** #id{cmd.from_user.id}\n**Data:** `{cb_data}`", parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Ban User", callback_data=f"ban_{cmd.from_user.id}")]]))
 		new_position = cb_data.split("_", 1)[1]
 		if cb_data.startswith("position_"):
 			await db.set_position(cmd.from_user.id, new_position)
@@ -516,7 +517,7 @@ async def button(bot, cmd: CallbackQuery):
 			await cmd.message.edit(
 				text="Here you can set your Watermark Settings:",
 				disable_web_page_preview=True,
-				parse_mode="Markdown",
+				parse_mode=ParseMode.MARKDOWN,
 				reply_markup=InlineKeyboardMarkup(
 					[
 						[InlineKeyboardButton(f"Watermark Position - {position_tag}", callback_data="lol")],

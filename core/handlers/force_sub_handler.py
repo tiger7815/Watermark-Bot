@@ -4,7 +4,7 @@ import asyncio
 from configs import Config
 from pyrogram.errors import FloodWait, UserNotParticipant
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
+from pyrogram.enums import ParseMode
 
 async def handle_force_subscribe(bot, cmd):
     try:
@@ -13,7 +13,7 @@ async def handle_force_subscribe(bot, cmd):
             await bot.send_message(
                 chat_id=cmd.from_user.id,
                 text="Sorry Sir, You are Banned to use me. Contact my [Support Group](https://t.me/linux_repo).",
-                parse_mode="markdown",
+                parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True
             )
             return 400
@@ -36,14 +36,14 @@ async def handle_force_subscribe(bot, cmd):
                     ]
                 ]
             ),
-            parse_mode="markdown"
+            parse_mode=ParseMode.MARKDOWN
         )
         return 400
     except Exception:
         await bot.send_message(
             chat_id=cmd.from_user.id,
             text="Something went Wrong. Contact my [Support Group](https://t.me/linux_repo).",
-            parse_mode="markdown",
+            parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True
         )
         return 400
