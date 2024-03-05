@@ -8,7 +8,7 @@ import os
 
 
 class Config(object):
-	BOT_TOKEN = os.environ.get("BOT_TOKEN", "6639259439:AAHmbc1auq2hDmRbwI-SKwETvSMQG74f028")
+	BOT_TOKEN = os.environ.get("BOT_TOKEN", "6954921683:AAGoxprOu-r85fS-5nL2sNAqNA9c_oh-WiU")
 	API_ID = int(os.environ.get("API_ID", 18618422))
 	API_HASH = os.environ.get("API_HASH", "f165b1caec3cfa4df943fe1cbe82d22a")
 	STREAMTAPE_API_PASS = os.environ.get("STREAMTAPE_API_PASS", "NoNeed")
@@ -19,7 +19,7 @@ class Config(object):
 	PRESET = os.environ.get("PRESET", "ultrafast")
 	OWNER_ID = int(os.environ.get("OWNER_ID", 6050277919))
 	CAPTION = "By @my_wtadd_bot"
-	BOT_USERNAME = os.environ.get("BOT_USERNAME", "my_wtadd_bot")
+	BOT_USERNAME = os.environ.get("BOT_USERNAME", "ultroid_77919_bot")
 	DATABASE_URL = os.environ.get("DATABASE_URL", "mongodb+srv://mrag2408:FWsWe727LzF00j9v@cluster0.hhyhf6l.mongodb.net/?retryWrites=true&w=majority")
 	BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
 	ALLOW_UPLOAD_TO_STREAMTAPE = bool(os.environ.get("ALLOW_UPLOAD_TO_STREAMTAPE", False))
