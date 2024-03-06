@@ -34,11 +34,8 @@ async def vidmark(the_media, message, working_dir, watermark_path, output_vid, t
             "-c:v", "copy", "-preset", mode, "-crf", "0", "-c:a", "copy", output_vid
         ]
         COMPRESSION_START_TIME = time.time()
-        process = await asyncio.create_subprocess_shell(
-            file_generator_command,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE,
-        )
+        process = subprocess.run(file_genertor_command, shell=True)
+
         with open(status, 'r+') as f:
             statusMsg = json.load(f)
             statusMsg['pid'] = process.pid
