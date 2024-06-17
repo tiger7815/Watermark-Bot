@@ -8,18 +8,18 @@ import os
 
 
 class Config(object):
-	BOT_TOKEN = os.environ.get("BOT_TOKEN", "6954921683:AAGoxprOu-r85fS-5nL2sNAqNA9c_oh-WiU")
+	BOT_TOKEN = os.environ.get("BOT_TOKEN", "6871505238:AAF0DiNwF2n5VmmLE77xwdb2zrZrgECWe24")
 	API_ID = int(os.environ.get("API_ID", 18618422))
 	API_HASH = os.environ.get("API_HASH", "f165b1caec3cfa4df943fe1cbe82d22a")
 	STREAMTAPE_API_PASS = os.environ.get("STREAMTAPE_API_PASS", "NoNeed")
 	STREAMTAPE_API_USERNAME = os.environ.get("STREAMTAPE_API_USERNAME", "NoNeed")
-	LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1001919121659"))
+	LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1002111115192"))
 	UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", None)
 	DOWN_PATH = os.environ.get("DOWN_PATH", "./downloads")
 	PRESET = os.environ.get("PRESET", "ultrafast")
-	OWNER_ID = int(os.environ.get("OWNER_ID", 6050277919))
+	OWNER_ID = int(os.environ.get("OWNER_ID", 5881684718))
 	CAPTION = "By @my_wtadd_bot"
-	BOT_USERNAME = os.environ.get("BOT_USERNAME", "ultroid_77919_bot")
+	BOT_USERNAME = os.environ.get("BOT_USERNAME", "SUPERSTAR01BOT")
 	DATABASE_URL = os.environ.get("DATABASE_URL", "mongodb+srv://mohit18324:TxsMAm4VjmS0nQ74@cluster0.ynzyhrh.mongodb.net/?retryWrites=true&w=majority")
 	BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
 	ALLOW_UPLOAD_TO_STREAMTAPE = bool(os.environ.get("ALLOW_UPLOAD_TO_STREAMTAPE", False))
