@@ -18,6 +18,7 @@ import json
 import random
 import asyncio
 import aiohttp
+import subprocess
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from PIL import Image
